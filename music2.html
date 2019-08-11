@@ -81,10 +81,11 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate);   
-   yy = Math.sin ( Date.now()%70/10) ;
-   console.log (yy);
-   if (yy > 0.9) {
-      //console.log ('playClick() ' + yy);
+   yy = Math.sin (0.3*( Date.now()%70/10) );
+   //console.log (yy);
+   if (yy > 0.95) {
+   
+      console.log ('playClick() ' + yy);
       playClick();
    }
    
