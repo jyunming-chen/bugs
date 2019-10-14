@@ -1,0 +1,70 @@
+<style>
+#mydiv {
+	position: absolute;
+	top: 5%;
+	width:100%;
+	text-align:center
+}
+
+#toggle {
+  width: 20%;
+  color: pink;
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
+<script src="https://threejs.org/examples/js/controls/OrbitControls.js">
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<div id='mydiv'>
+<button id='toggle'>Toggle</button>
+</div>
+
+<canvas id='mycanvas' style='background-color:pink'> </canvas>
+
+
+<script>
+var renderer, scene, camera;
+
+init();
+animate();
+
+function init() {
+
+	let myCanvas = document.getElementById ('mycanvas');
+	renderer = new THREE.WebGLRenderer ({canvas: myCanvas});
+	let width = window.innerWidth;
+	let height = window.innerHeight;
+	renderer.setSize (width, height);
+	renderer.setClearColor ('grey');
+	
+	scene = new THREE.Scene();
+	camera = new THREE.PerspectiveCamera (60, width/height, 1, 1000);
+	let controls = new THREE.OrbitControls (camera, myCanvas);
+	camera.position.z = 300;
+	
+	let grid = new THREE.GridHelper (200,20,'red','white');
+	scene.add (grid);
+	
+	scene.background = new THREE.Color ('pink');
+	
+	let loader = new THREE.TextureLoader ();
+	scene.background  = loader.load ("https://i.imgur.com/HBZ38p5.jpg");
+	
+  if (false) {		
+	let loader = new THREE.CubeTextureLoader();
+	loader.setPath( 'cube_skybox/' );
+	scene.background = loader.load( [
+		'px.jpg', 'nx.jpg',
+		'py.jpg', 'ny.jpg',
+		'pz.jpg', 'nz.jpg'
+	] );
+  }
+}
+
+function animate() {
+	requestAnimationFrame (animate);
+	renderer.render (scene, camera);
+}
+
+</script>
